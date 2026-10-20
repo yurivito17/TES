@@ -1,0 +1,5 @@
+cd /workspace/TES
+git add index.html
+git commit -m "Tambah landing page promosi baju"
+git branch -M main
+git push -u origin main
