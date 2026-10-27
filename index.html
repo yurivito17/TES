@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pendaftaran — Jelajah Terra</title>
+  <style>
+    :root{color-scheme:light;--green:#204d3b;--cream:#f6f3eb;--ink:#24362e;--muted:#56645b;--line:#d5ddd5;--error:#a32125}
+    *{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.6 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    header{background:var(--green);color:#fff;padding:36px 20px 30px}header>div,main,footer{max-width:720px;margin:auto}
+    .brand{font-size:14px;letter-spacing:.16em;text-transform:uppercase;font-weight:750}h1{font-size:clamp(26px,6vw,36px);line-height:1.2;margin:12px 0}h2,legend{font-size:22px;line-height:1.3;font-weight:750}h2{margin:0 0 18px}h3{font-size:16px;margin:20px 0 6px}
+    main{padding:24px 16px 8px}section,fieldset,.confirmation{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;margin:0 0 20px;min-width:0}
+    .trip-art{margin:0 0 20px;overflow:hidden;border-radius:12px;background:#e8eddc}.trip-art svg{display:block;width:100%;height:auto}.trip-art figcaption{padding:8px 12px;font-size:12px;line-height:1.5;color:var(--muted);background:#f0f3e9}.trip-tag{display:inline-block;margin-bottom:10px;border-radius:100px;padding:5px 12px;background:#e9f0e9;color:var(--green);font-size:13px;font-weight:700}.trip-description{color:var(--muted);margin-bottom:20px}
+    fieldset{padding-top:16px}legend{float:left;width:100%;padding:0;margin-bottom:12px}fieldset>div:first-of-type{clear:both}
+    p{margin:0 0 14px}ul{padding-left:22px;margin:6px 0}dl{display:grid;grid-template-columns:88px 1fr;gap:8px 14px;margin:0}dt{color:var(--muted)}dd{margin:0;font-weight:600;overflow-wrap:anywhere}
+    .intro,.help{color:var(--muted)}.help{font-size:14px;margin:6px 0 0}.notice{padding:14px 16px;background:#f7efd9;border:1px solid #ddc78d;border-radius:10px;margin-bottom:18px}.field{margin-top:20px}
+    label{display:block;font-weight:650;margin-bottom:6px}input,select,textarea,button{font:inherit}input:not([type=checkbox]),select,textarea{width:100%;min-height:48px;border:1px solid #86988c;border-radius:8px;background:#fff;color:var(--ink);padding:10px 12px}textarea{min-height:100px;resize:vertical}
+    :focus-visible{outline:3px solid #b08025;outline-offset:3px}[aria-invalid=true]{border-color:var(--error)!important}.error{color:var(--error);font-size:14px;margin:6px 0 0}.error:empty{display:none}
+    .check{display:flex;align-items:flex-start;gap:12px;font-weight:400}.check input{width:22px;height:22px;flex:0 0 22px;margin-top:4px;accent-color:var(--green)}
+    button{width:100%;border:0;border-radius:10px;padding:15px 20px;min-height:52px;background:var(--green);color:#fff;font-weight:700;cursor:pointer}button:disabled{opacity:.65;cursor:wait}.actions{margin:20px 0}.actions p{margin-top:12px;text-align:center;font-size:14px;color:var(--muted)}
+    .banner{padding:14px 16px;border-radius:10px;border:1px solid #d9a9a9;background:#fff2f1;color:#802020;margin-bottom:18px}.number{font-size:18px;font-weight:750;overflow-wrap:anywhere}.status{display:inline-block;background:#e9f0e9;padding:6px 12px;border-radius:8px}footer{padding:12px 20px 32px;font-size:13px;color:var(--muted)}[hidden]{display:none!important}
+    @media(max-width:420px){section,fieldset,.confirmation{padding:20px 16px}dl{grid-template-columns:72px 1fr;gap:8px}}
+  </style>
+</head>
+<body>
+  <header><div><div class="brand">Jelajah Terra</div><h1>Langkah kecil, cerita baru.</h1><p>Informasi kegiatan &amp; pendaftaran peserta</p></div></header>
+  <main>
+    <div id="loading" role="status">Memuat informasi kegiatan…</div>
+    <div id="loadError" class="banner" role="alert" hidden></div>
+    <div id="content" hidden>
+      <section aria-labelledby="tripName">
+        <figure class="trip-art">
+          <svg viewBox="0 0 800 450" role="img" aria-labelledby="landscapeTitle landscapeDescription" xmlns="http://www.w3.org/2000/svg">
+            <title id="landscapeTitle">Ilustrasi perjalanan hiking di perbukitan hijau</title>
+            <desc id="landscapeDescription">Jalur berkelok menuju bukit berlapis dengan dua pendaki, pepohonan, dan matahari pagi. Ilustrasi dekoratif, bukan foto Bukit Daolong.</desc>
+            <defs>
+              <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#d7e4de"/><stop offset="1" stop-color="#f7ecd0"/></linearGradient>
+              <linearGradient id="hill" x2="0.7" y2="1"><stop stop-color="#61836c"/><stop offset="1" stop-color="#365f4a"/></linearGradient>
+              <linearGradient id="foreground" x2="0" y2="1"><stop stop-color="#2b5541"/><stop offset="1" stop-color="#173c2e"/></linearGradient>
+            </defs>
+            <path fill="url(#sky)" d="M0 0h800v450H0z"/>
+            <circle cx="610" cy="98" r="43" fill="#f2cf8d"/>
+            <g fill="#fff" opacity=".4"><path d="M58 92c28-19 62-20 88 0 32-7 55-3 70 11H39z"/><path d="M355 64c20-13 44-12 62 2 23-6 45-1 59 10H337z"/></g>
+            <path d="M0 238 98 187l94 29L345 97l115 111 95-52 136 72 109-44v266H0z" fill="#b1c5b3"/>
+            <path d="m0 280 165-112 111 90 119-64 152 70 126-107 127 85v208H0z" fill="#8ba88d"/>
+            <path d="M0 330c112-30 158-87 251-101 94-15 121 43 204 47 137 6 205-97 345-57v231H0z" fill="url(#hill)"/>
+            <path d="M0 374c122-80 236-61 329-14 124 64 303-81 471-61v151H0z" fill="url(#foreground)"/>
+            <path d="M371 450c-22-28-29-45-7-68 25-25 110-35 115-58 5-22-58-30-72-46-12-13 4-25 23-34-31 8-57 22-43 41 13 17 70 25 64 38-9 20-99 24-131 56-25 25-23 51-7 71z" fill="#d9c39b"/>
+            <path d="M0 409c71-23 125-23 184 8l67 33H0zm800-57c-71 8-128 36-163 98h163z" fill="#214b38"/>
+            <g fill="#214b38"><path d="m95 217-25 52h14l-23 38h68l-22-38h14z"/><path d="m687 223-24 48h13l-23 40h67l-23-40h14z"/></g>
+            <g stroke="#d6c9a3" stroke-width="3" stroke-linecap="round"><path d="M92 285v36m593-25v31"/></g>
+            <g stroke="#233c32" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m373 369-5 18m6-18 8 15m-8-34-6 12-10 4m16-13 10 9 8-3" fill="none"/>
+              <path d="m374 347-3 23" stroke="#d79c62" stroke-width="12"/>
+              <path d="m365 350-4 14" stroke="#6e8c7a" stroke-width="9"/>
+              <circle cx="377" cy="334" r="7" fill="#e1bb8b" stroke="none"/>
+              <path d="m369 330 18 3" stroke="#d79c62"/>
+              <path d="m393 357-3 31" stroke-width="2"/>
+              <path d="m412 350-3 17m4-17 8 13m-6-31-6 9-8 2m14-8 9 9 6-2" fill="none"/>
+              <path d="m415 330-2 21" stroke="#e9dfba" stroke-width="11"/>
+              <path d="m406 332-2 12" stroke="#b77a54" stroke-width="8"/>
+              <circle cx="416" cy="318" r="6" fill="#d6ab7e" stroke="none"/>
+              <path d="m410 314 15 2" stroke="#667d57"/>
+              <path d="m429 340-1 27" stroke-width="2"/>
+            </g>
+            <g stroke="#638467" stroke-width="3" fill="none" stroke-linecap="round"><path d="m67 427 4-22m-2 12-9-8m11 2 8-10m645 18 3-22m-2 12-8-8m10 3 7-9"/></g>
+          </svg>
+          <figcaption>Ilustrasi suasana hiking · bukan foto lokasi Bukit Daolong.</figcaption>
+        </figure>
+        <div id="exampleNotice" class="notice" hidden><strong>Pratinjau trip — data percobaan.</strong><br>Nama trip dan jarak 3 km sesuai informasi awal. Tanggal, harga, estimasi durasi, titik kumpul, fasilitas, serta persyaratan di bawah adalah contoh yang perlu dikonfirmasi pengelola.</div>
+        <span class="trip-tag">Hiking · <span id="distanceBadge"></span></span>
+        <h2 id="tripName"></h2>
+        <p id="tripDescription" class="trip-description"></p>
+        <dl><dt>Jarak</dt><dd id="tripDistance"></dd><dt>Durasi</dt><dd id="tripDuration"></dd><dt>Tanggal</dt><dd id="tripDate"></dd><dt>Lokasi</dt><dd id="tripLocation"></dd><dt>Harga</dt><dd><span id="tripPrice"></span> / peserta</dd></dl>
+        <h3>Fasilitas yang termasuk</h3><ul id="included"></ul>
+        <h3>Persyaratan peserta</h3><ul id="requirements"></ul>
+        <p class="help">Satu formulir untuk satu peserta. Pengiriman formulir belum menjamin ketersediaan tempat. Semua pendaftaran berstatus Menunggu konfirmasi.</p>
+      </section>
+      <div id="closedNotice" class="notice" role="status" hidden>Pendaftaran belum dibuka atau sudah ditutup. Silakan hubungi admin Jelajah Terra.</div>
+      <form id="registrationForm" novalidate hidden>
+        <p class="intro">Isi data peserta di bawah ini. Kolom bertanda * wajib diisi.</p>
+        <fieldset><legend>1. Identitas peserta</legend>
+          <div class="field"><label for="fullName">Nama lengkap *</label><input id="fullName" name="fullName" autocomplete="name" maxlength="120" required aria-describedby="fullNameError"><p id="fullNameError" class="error"></p></div>
+          <div class="field"><label for="birthDate">Tanggal lahir *</label><input id="birthDate" name="birthDate" type="date" autocomplete="bday" required aria-describedby="birthDateError"><p id="birthDateError" class="error"></p></div>
+          <div class="field"><label for="whatsapp">Nomor WhatsApp *</label><input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" required aria-describedby="phoneHelp whatsappError"><p id="phoneHelp" class="help">Nomor Indonesia, misalnya 081234567890 atau +6281234567890.</p><p id="whatsappError" class="error"></p></div>
+          <div class="field"><label for="email">Email *</label><input id="email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required aria-describedby="emailError"><p id="emailError" class="error"></p></div>
+          <div class="field"><label for="city">Kota domisili (opsional)</label><input id="city" name="city" autocomplete="address-level2" maxlength="120" aria-describedby="cityError"><p id="cityError" class="error"></p></div>
+        </fieldset>
+        <fieldset><legend>2. Informasi kesehatan</legend>
+          <div><p class="help">Informasi ini digunakan untuk persiapan kegiatan. Beri tahu admin jika ada perubahan. Formulir ini tidak memberikan diagnosis atau menentukan kelayakan mengikuti kegiatan secara otomatis.</p></div>
+          <div class="field"><label for="healthCondition">Apakah ada kondisi kesehatan yang perlu diketahui pemandu? *</label><select id="healthCondition" name="healthCondition" required aria-describedby="healthConditionError"><option value="">Pilih jawaban</option><option>Ya</option><option>Tidak</option></select><p id="healthConditionError" class="error"></p></div>
+          <div id="healthDetailsWrap" class="field" hidden><label for="healthDetails">Jelaskan kondisi kesehatan *</label><textarea id="healthDetails" name="healthDetails" maxlength="1000" disabled aria-describedby="healthDetailsError"></textarea><p id="healthDetailsError" class="error"></p></div>
+          <div class="field"><label for="allergy">Apakah ada alergi yang perlu diketahui? *</label><select id="allergy" name="allergy" required aria-describedby="allergyError"><option value="">Pilih jawaban</option><option>Ya</option><option>Tidak</option></select><p id="allergyError" class="error"></p></div>
+          <div id="allergyDetailsWrap" class="field" hidden><label for="allergyDetails">Jelaskan alergi *</label><textarea id="allergyDetails" name="allergyDetails" maxlength="1000" disabled aria-describedby="allergyDetailsError"></textarea><p id="allergyDetailsError" class="error"></p></div>
+          <div class="field"><label for="medication">Apakah ada obat yang digunakan atau perlu dibawa selama kegiatan? *</label><select id="medication" name="medication" required aria-describedby="medicationError"><option value="">Pilih jawaban</option><option>Ya</option><option>Tidak</option></select><p id="medicationError" class="error"></p></div>
+          <div id="medicationDetailsWrap" class="field" hidden><label for="medicationDetails">Jelaskan obat yang digunakan atau perlu dibawa *</label><textarea id="medicationDetails" name="medicationDetails" maxlength="1000" disabled aria-describedby="medicationDetailsError"></textarea><p id="medicationDetailsError" class="error"></p></div>
+          <div class="field"><label for="specialNeeds">Catatan kebutuhan khusus (opsional)</label><textarea id="specialNeeds" name="specialNeeds" maxlength="1000" aria-describedby="specialNeedsError"></textarea><p id="specialNeedsError" class="error"></p></div>
+        </fieldset>
+        <fieldset><legend>3. Kontak darurat</legend>
+          <div class="field"><label for="emergencyName">Nama kontak darurat *</label><input id="emergencyName" name="emergencyName" maxlength="120" required aria-describedby="emergencyNameError"><p id="emergencyNameError" class="error"></p></div>
+          <div class="field"><label for="emergencyRelationship">Hubungan dengan peserta *</label><input id="emergencyRelationship" name="emergencyRelationship" maxlength="80" required aria-describedby="emergencyRelationshipError"><p id="emergencyRelationshipError" class="error"></p></div>
+          <div class="field"><label for="emergencyPhone">Nomor telepon kontak darurat *</label><input id="emergencyPhone" name="emergencyPhone" type="tel" inputmode="tel" maxlength="30" required aria-describedby="emergencyPhoneHelp emergencyPhoneError"><p id="emergencyPhoneHelp" class="help">Gunakan nomor Indonesia: 08…, 628…, atau +628….</p><p id="emergencyPhoneError" class="error"></p></div>
+        </fieldset>
+        <section aria-labelledby="consentTitle"><h2 id="consentTitle">4. Persetujuan</h2><p class="help">Data kontak dan kesehatan tidak ditampilkan kepada publik. Hanya admin yang berwenang mengelola data ini untuk administrasi serta persiapan kegiatan.</p>
+          <div class="field"><label class="check" for="consent"><input id="consent" name="consent" type="checkbox" required aria-describedby="consentError"><span><span id="consentText"></span> *</span></label><p id="consentError" class="error"></p></div>
+        </section>
+        <div id="submitError" class="banner" role="alert" tabindex="-1" hidden></div>
+        <div class="actions"><button id="submitButton" type="submit">Kirim pendaftaran</button><p id="sendingStatus" role="status" aria-live="polite">Pastikan data sudah benar sebelum mengirim.</p></div>
+      </form>
+      <section id="confirmation" class="confirmation" tabindex="-1" aria-labelledby="successTitle" hidden>
+        <h2 id="successTitle">Pendaftaran berhasil dikirim!</h2>
+        <p>Nomor pendaftaran Anda:<br><span id="registrationNumber" class="number"></span></p>
+        <p>Terima kasih telah mendaftar. Tim Jelajah Terra akan menghubungi Anda melalui WhatsApp untuk konfirmasi ketersediaan tempat dan pembayaran.</p>
+        <p class="status">Status: Menunggu konfirmasi.</p>
+        <p class="help">Simpan nomor pendaftaran ini untuk menghubungi admin.</p>
+        <button id="anotherParticipant" type="button">Daftarkan peserta lain</button>
+      </section>
+    </div>
+  </main>
+  <footer>Jelajah Terra · Informasi dan pendaftaran kegiatan alam</footer>
+  <script>
+    'use strict';
+    const $ = id => document.getElementById(id);
+    const form = $('registrationForm');
+    const pairs = [['healthCondition','healthDetails'],['allergy','allergyDetails'],['medication','medicationDetails']];
+    let trip, submissionKey, storageKey, busy = false;
+    function todayJakarta() {
+      const parts = new Intl.DateTimeFormat('en-GB', {timeZone:'Asia/Jakarta',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+      const part = type => parts.find(p => p.type === type).value;
+      return part('year') + '-' + part('month') + '-' + part('day');
+    }
+    function uuid() {
+      // Tidak memakai Math.random: kunci retry harus tidak dapat ditebak.
+      const bytes = new Uint8Array(16); crypto.getRandomValues(bytes);
+      bytes[6] = (bytes[6] & 15) | 64; bytes[8] = (bytes[8] & 63) | 128;
+      const h = Array.from(bytes, n => n.toString(16).padStart(2,'0')).join('');
+      return h.slice(0,8)+'-'+h.slice(8,12)+'-'+h.slice(12,16)+'-'+h.slice(16,20)+'-'+h.slice(20);
+    }
+    function setError(name, message) {
+      const input = $(name), error = $(name + 'Error');
+      if (!input || !error) return;
+      error.textContent = message || '';
+      if (message) input.setAttribute('aria-invalid','true'); else input.removeAttribute('aria-invalid');
+    }
+    function clearErrors() {
+      Array.from(form.elements).forEach(input => { if (input.id) setError(input.id, ''); });
+      $('submitError').hidden = true;
+    }
+    function showSubmitError(message) {
+      $('submitError').textContent = message;
+      $('submitError').hidden = false;
+    }
+    pairs.forEach(([answer, detail]) => {
+      $(answer).addEventListener('change', () => {
+        const yes = $(answer).value === 'Ya';
+        $(detail + 'Wrap').hidden = !yes; $(detail).required = yes; $(detail).disabled = !yes;
+        if (!yes) { $(detail).value = ''; setError(detail, ''); }
+      });
+    });
+    form.addEventListener('input', event => { if (event.target.id) setError(event.target.id, ''); });
+    function phoneValid(value) {
+      if (!/^[+\d\s().-]+$/.test(value)) return false;
+      let n = value.replace(/[\s().-]/g,'').replace(/^\+/,'');
+      if (n.startsWith('08')) n = '62' + n.slice(1);
+      return /^628\d{8,11}$/.test(n);
+    }
+    function dateValid(value) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+      const [y,m,d] = value.split('-').map(Number);
+      const days = [31,(y%4===0&&(y%100!==0||y%400===0))?29:28,31,30,31,30,31,31,30,31,30,31];
+      return y >= 1 && m >= 1 && m <= 12 && d >= 1 && d <= days[m-1] && value <= todayJakarta();
+    }
+    function validateBrowser() {
+      const errors = {};
+      Array.from(form.elements).forEach(input => {
+        if (!input.name || input.disabled) return;
+        const value = input.type === 'checkbox' ? input.checked : input.value.trim();
+        if (input.required && !value) errors[input.name] = input.type === 'checkbox' ? 'Persetujuan diperlukan untuk mengirim pendaftaran.' : 'Kolom ini wajib diisi.';
+        else if (typeof value === 'string' && input.maxLength > 0 && value.length > input.maxLength) errors[input.name] = 'Maksimal ' + input.maxLength + ' karakter.';
+      });
+      if (!dateValid($('birthDate').value)) errors.birthDate = 'Isi tanggal lahir yang valid dan tidak di masa depan.';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('email').value.trim())) errors.email = 'Isi alamat email yang valid.';
+      ['whatsapp','emergencyPhone'].forEach(id => { if (!phoneValid($(id).value.trim())) errors[id] = 'Gunakan nomor Indonesia yang valid: 08…, 628…, atau +628….'; });
+      Object.keys(errors).forEach(id => setError(id, errors[id]));
+      if (Object.keys(errors).length) { $(Object.keys(errors)[0]).focus(); return false; }
+      return true;
+    }
+    function setBusy(value) {
+      busy = value; $('submitButton').disabled = value;
+      $('submitButton').textContent = value ? 'Sedang mengirim…' : 'Kirim pendaftaran';
+      $('sendingStatus').textContent = value ? 'Mohon tunggu hingga hasil pengiriman ditampilkan.' : 'Pastikan data sudah benar sebelum mengirim.';
+      // Bekukan isian saat request aktif agar data di layar sesuai data yang dikirim.
+      Array.from(form.elements).forEach(input => { if (input.type !== 'submit') input.disabled = value; });
+      if (!value) pairs.forEach(([answer, detail]) => { $(detail).disabled = $(answer).value !== 'Ya'; });
+      form.setAttribute('aria-busy', String(value));
+    }
+    form.addEventListener('submit', event => {
+      event.preventDefault(); if (busy || !trip || !trip.registrationOpen) return;
+      clearErrors(); if (!validateBrowser()) return;
+      const payload = {tripId:trip.tripId, submissionKey:submissionKey};
+      Array.from(form.elements).forEach(input => {
+        if (input.name && !input.disabled) payload[input.name] = input.type === 'checkbox' ? input.checked : input.value.trim();
+      });
+      setBusy(true);
+      try {
+        google.script.run.withSuccessHandler(result => {
+          setBusy(false);
+          if (result && result.ok === true && typeof result.registrationNumber === 'string' && result.registrationNumber) {
+            // Kunci tetap disimpan di sessionStorage supaya reload/retry tidak menggandakan baris.
+            $('registrationNumber').textContent = result.registrationNumber;
+            form.hidden = true; form.reset();
+            $('confirmation').hidden = false; $('confirmation').focus();
+            return;
+          }
+          showSubmitError(result && result.message || 'Pengiriman belum berhasil. Silakan coba lagi.');
+          if (result && result.errors) Object.keys(result.errors).forEach(id => setError(id, result.errors[id]));
+          const first = form.querySelector('[aria-invalid="true"]');
+          if (first) first.focus(); else $('submitError').focus();
+        }).withFailureHandler(() => {
+          setBusy(false);
+          showSubmitError('Koneksi atau penyimpanan sedang bermasalah. Isian Anda tetap ada. Coba kirim ulang; pengiriman yang sama tidak membuat baris ganda.');
+          $('submitError').focus();
+        }).submitRegistration(payload);
+      } catch (_) {
+        setBusy(false); showSubmitError('Pengiriman belum berhasil. Isian tetap ada. Silakan coba lagi.'); $('submitError').focus();
+      }
+    });
+    $('anotherParticipant').addEventListener('click', () => {
+      try {
+        const nextKey = uuid();
+        submissionKey = nextKey;
+        try { sessionStorage.setItem(storageKey, nextKey); } catch (_) {}
+        form.reset(); clearErrors();
+        pairs.forEach(([answer, detail]) => {
+          $(detail + 'Wrap').hidden = true; $(detail).required = false; $(detail).disabled = true;
+        });
+        $('confirmation').hidden = true; form.hidden = false; $('fullName').focus();
+      } catch (_) { /* Tetap tampilkan nomor yang berhasil tersimpan bila browser bermasalah. */ }
+    });
+    function loadFailed() {
+      $('loading').hidden = true; $('loadError').hidden = false;
+      $('loadError').textContent = 'Informasi kegiatan belum dapat dimuat. Buka tautan deployment Google Apps Script dan muat ulang, atau hubungi admin.';
+    }
+    function showTrip(result) {
+      if (!result || !result.ok || !result.trip) { loadFailed(); return; }
+      try {
+        trip = result.trip;
+        $('tripName').textContent = trip.name;
+        const distance = new Intl.NumberFormat('id-ID').format(trip.distanceKm) + ' km';
+        $('distanceBadge').textContent = distance;
+        $('tripDistance').textContent = distance;
+        $('tripDescription').textContent = trip.description;
+        $('tripDuration').textContent = trip.duration;
+        const [y,m,d] = trip.date.split('-').map(Number);
+        $('tripDate').textContent = new Intl.DateTimeFormat('id-ID',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(Date.UTC(y,m-1,d))) + (trip.isExample ? ' (contoh)' : '');
+        $('tripLocation').textContent = trip.location;
+        $('tripPrice').textContent = new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(trip.price) + (trip.isExample ? ' (contoh)' : '');
+        [['included',trip.included],['requirements',trip.requirements]].forEach(([id, items]) => items.forEach(text => {
+          const li = document.createElement('li'); li.textContent = text; $(id).appendChild(li);
+        }));
+        $('consentText').textContent = trip.consentText;
+        $('birthDate').max = todayJakarta();
+        $('exampleNotice').hidden = !trip.isExample;
+        $('closedNotice').hidden = trip.registrationOpen;
+        if (trip.registrationOpen) {
+          storageKey = 'jelajah-terra:submission:' + trip.tripId;
+          try { submissionKey = sessionStorage.getItem(storageKey); } catch (_) { /* Retry masih aman di halaman yang sama. */ }
+          if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(submissionKey || '')) submissionKey = uuid();
+          // Simpan hanya kunci acak, bukan identitas/kesehatan peserta.
+          try { sessionStorage.setItem(storageKey, submissionKey); } catch (_) { /* Browser mungkin memblokir storage. */ }
+          form.hidden = false;
+        }
+        $('loading').hidden = true; $('content').hidden = false;
+      } catch (_) { loadFailed(); }
+    }
+    if (typeof google !== 'undefined' && google.script && google.script.run) {
+      google.script.run.withSuccessHandler(showTrip).withFailureHandler(loadFailed).getTrip();
+    } else loadFailed();
+  </script>
+</body>
+</html>
